@@ -1,0 +1,20 @@
+/*
+ * Copyright 2016, NICTA
+ *
+ * This software may be distributed and modified according to the terms of
+ * the BSD 2-Clause license. Note that NO WARRANTY is provided.
+ * See "LICENSE_BSD2.txt" for details.
+ *
+ * @TAG(NICTA_BSD)
+ */
+
+procedure btreemap_iface {
+    include <btreemap.h>;
+    bool contains_key(in uint32_t key);
+    OptionValue_culong insert(in uint32_t key, in uint32_t value);
+    OptionVec_culong keys();
+    OptionVec_culong values();
+    OptionValue_culong remove(in uint32_t key);
+    uintptr_t len();
+    bool is_empty();
+};

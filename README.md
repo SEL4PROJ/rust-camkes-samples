@@ -1,8 +1,5 @@
 # Rust camkes samples
 
-Rust camkes samples
-=======================
-
 A collection of camkes apps, libs and configs for using rust on self.
 
 libbtreemap

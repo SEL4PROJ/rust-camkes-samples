@@ -1,0 +1,41 @@
+/*
+ * Copyright 2016, NICTA
+ *
+ * This software may be distributed and modified according to the terms of
+ * the BSD 2-Clause license. Note that NO WARRANTY is provided.
+ * See "LICENSE_BSD2.txt" for details.
+ *
+ * @TAG(NICTA_BSD)
+ */
+import <std_connector.camkes>;
+
+import "components/main/main.camkes";
+import "components/secondary/secondary.camkes";
+import "components/store/store.camkes";
+
+
+assembly {
+	composition {
+
+		component main main_object;
+        component store store_object;
+        component secondary secondary_object;
+
+        connection seL4RPCCall btree_connection(from main_object.camkes_btreemap, to store_object.camkes_btreemap);
+        connection seL4RPCCall btree_connection2(from secondary_object.camkes_btreemap, to store_object.camkes_btreemap);
+
+        connection seL4SharedData main_dataport(from main_object.btreemap_buffer, to store_object.main_btreemap_buffer);
+        connection seL4SharedData main_dataport2(from secondary_object.btreemap_buffer, to store_object.secondary_btreemap_buffer);
+        connection seL4Asynch barrier_evt(from secondary_object.barrier_event, to main_object.barrier_event);
+
+	}
+
+	configuration
+	{
+        /* These attributes get converted into ids that the store object uses to identify
+        the rpc call sender in order to respond appropriately */
+        main_object.camkes_btreemap_attributes = "1";
+        secondary_object.camkes_btreemap_attributes = "2";
+
+	}
+}
