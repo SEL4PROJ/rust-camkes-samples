@@ -21,7 +21,7 @@ path = "src/main.rs"
 crate-type = ["staticlib"]
 
 
-[build-dependencies.bindgen]
-git = "https://github.com/crabtw/rust-bindgen.git"
+[build-dependencies]
+bindgen = "0.17.0"
 
 [dependencies]
